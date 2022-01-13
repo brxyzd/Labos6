@@ -22,7 +22,22 @@ namespace Labos6
             base.OnShown(e);
 
             LogIn login = new LogIn();
+            login.UserLoggedIn += Login_UserLoggedIn;
             login.Show(this);
+        }
+
+        private void Login_UserLoggedIn(object sender, EventArgs e)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                ds.ReadXml("popisKnjiga.xml");
+                dataGridView1.DataSource = ds.Tables[0];
+            }
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
